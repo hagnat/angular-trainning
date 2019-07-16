@@ -12,7 +12,7 @@ namespace Jukebox {
             }
 
             play() {
-                console.log("Playing '" + this.title + "' by " + this.artist);
+                console.log(" * Playing '\x1b[1m%s\x1b[0m' by \x1b[1m%s\x1b[0m", this.title, this.artist);
             }
         }
     }

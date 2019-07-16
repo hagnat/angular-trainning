@@ -1,9 +1,17 @@
 
+.DEFAULT_GOAL := all
+
 clear:
-	rm -R *.js
+	@echo "=> Removes all parsed javascript files..."
+	rm -rf *.js
 
 jukebox.js:
+	@echo "=> Building Jukebox..."
 	tsc --target ES5 --module system --outFile jukebox.js jukebox.ts
+	@echo "Build complete!\n"
 
-jukebox: clear jukebox.js
+jukebox: jukebox.js
+	@echo "=> Plays the Jukebox!"
 	node jukebox.js
+
+all: clear jukebox

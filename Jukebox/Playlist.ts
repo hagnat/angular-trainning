@@ -1,11 +1,13 @@
 namespace Jukebox {
     export class Playlist {
+
         public songs: Jukebox.Audio.Song[];
-        public _strategy: Jukebox.Strategies.NextSongStrategy;
+
+        private _strategy: Jukebox.Strategies.NextSongStrategy;
 
         constructor() {
             this.songs = [];
-            this._strategy = new Jukebox.Strategies.OrderedPlaylistStrategy();
+            this._strategy = new Jukebox.Strategies.QueuedPlaylistStrategy();
         }
 
         set strategy(strategy: Jukebox.Strategies.NextSongStrategy) {

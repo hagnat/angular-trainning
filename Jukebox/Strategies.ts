@@ -18,7 +18,8 @@ namespace Jukebox {
             }
         }
 
-        export class OrderedPlaylistStrategy implements NextSongStrategy {
+        export class QueuedPlaylistStrategy implements NextSongStrategy {
+
             private current = -1;
 
             next(songs: Jukebox.Audio.Song[]) {
@@ -29,6 +30,28 @@ namespace Jukebox {
                 this.current = ++this.current % songs.length;
 
                 return songs[this.current];
+            }
+        }
+
+        export class SortPlaylistStrategy implements NextSongStrategy {
+
+            private queuedStrategy: QueuedPlaylistStrategy;
+
+            constructor() {
+                this.queuedStrategy = new QueuedPlaylistStrategy();
+            }
+
+            next(songs: Jukebox.Audio.Song[]) {
+                var sortedSongs = songs.sort(this.compareSongTitles);
+
+                return this.queuedStrategy.next(sortedSongs);
+            }
+
+            private compareSongTitles(x: Jukebox.Audio.Song, y: Jukebox.Audio.Song) {
+                if (x.title.toUpperCase() == y.title.toUpperCase()) {
+                    return 0
+                }
+                return x.title.toUpperCase() > y.title.toUpperCase() ? 1 : -1;
             }
         }
     }
