@@ -3,8 +3,10 @@
 /// <reference path="Jukebox/Strategies.ts" />
 /// <reference path="Jukebox/Playlist.ts" />
 
-// var playlist = new Jukebox.Playlist(new Jukebox.Strategies.OrderedPlaylistStrategy());
-var playlist = new Jukebox.Playlist(new Jukebox.Strategies.RandomPlaylistStrategy());
+var playlist = new Jukebox.Playlist();
+
+playlist.strategy = new Jukebox.Strategies.OrderedPlaylistStrategy();
+// playlist.strategy = new Jukebox.Strategies.RandomPlaylistStrategy();
 
 playlist.songs.push(new Jukebox.Audio.Song("Du Hast", "Rammstein"));
 playlist.songs.push(new Jukebox.Audio.Song("Deutschland", "Rammstein"));

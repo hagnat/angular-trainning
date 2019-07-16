@@ -3,7 +3,7 @@ clear:
 	rm -R *.js
 
 jukebox.js:
-	tsc --module system --outFile jukebox.js jukebox.ts
+	tsc --target ES5 --module system --outFile jukebox.js jukebox.ts
 
-jukebox: jukebox.js
+jukebox: clear jukebox.js
 	node jukebox.js
