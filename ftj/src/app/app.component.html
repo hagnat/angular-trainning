@@ -16,4 +16,13 @@ Angular expands into an HTML5 <template> tag.
   <p class="text-info">No of tries :
     <span class="badge">{{howManyTries}}</span>
   </p>
+
+  <div>
+    <h3>Available Options</h3>
+    <ul class='list-group'>
+      <li *ngFor="let jewel of jewels" class="list-group-item">
+        {{ jewel }}
+      </li>
+    </ul>
+  </div>
 </div>
