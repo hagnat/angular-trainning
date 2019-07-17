@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Find the Jewel</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Provides ES2015 features for older browsers -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+      <!-- Adds decorator support -->
+    <script src="https://unpkg.com/reflect-metadata@0.1.3"></script>
+      <!-- Manages change detection -->
+    <script src="https://unpkg.com/zone.js@0.6.23?main=browser"></script>
+      <!-- Current version of TypeScript -->
+    <script src="https://unpkg.com/typescript@2.0/lib/typescript.js"></script>
+      <!-- Loads modules -->
+    <script src="https://unpkg.com/systemjs@0.19.27/dist/system.js"></script>
+      <!--
+        Provides instructions to SystemJS as to which modules it should load
+        and directs it to dynamically transpile TypeScript files to ES5 at runtime
+      -->
+    <script src="systemjs.config.js"></script>
+    <script>
+      // Calls SystemJS to import component directory (app)
+      // Implements the module loading for our app
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+  <body>
+      <!-- Tag "custom element", instructs Angular where to inject the component -->
+    <my-app>Our own main element for our app</my-app>
+  </body>
+</html>
