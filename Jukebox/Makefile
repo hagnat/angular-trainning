@@ -3,15 +3,15 @@
 
 clear:
 	@echo "=> Removes all parsed javascript files..."
-	rm -rf *.js
+	find build/ -name "*.js" -exec rm -rf {} \;
 
-jukebox.js:
+build/app.js:
 	@echo "=> Building Jukebox..."
-	tsc --target ES5 jukebox.ts
+	tsc -p .
 	@echo "Build complete!\n"
 
-jukebox: jukebox.js
+play: build/app.js
 	@echo "=> Plays the Jukebox!"
-	node jukebox.js
+	node build/app.js
 
-all: clear jukebox
+all: clear build/app.js
