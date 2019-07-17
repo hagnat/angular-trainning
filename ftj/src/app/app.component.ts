@@ -13,12 +13,9 @@ export class AppComponent {
   origJewel: string;
   findJewel: string;
   jewels: string[];
+  newJewel: string;
 
   constructor() {
-    this.initGame();
-  }
-
-  initGame() {
     this.jewels = [
       'ruby',
       'diamond',
@@ -32,18 +29,31 @@ export class AppComponent {
       'onyx',
       'pearl',
       'sapphire'
-    ];
+    ].sort();
+
+    this.initGame();
+  }
+
+  initGame() {
+    this.randomizeJewel();
+
     this.howManyTries = 0;
+    this.findJewel = null;
+    this.hinting = null;
+    this.newJewel = null;
+  }
 
-    // EXERCISE 1:
-    // - What if we add new jewel to jewels? fix it!
-
+  private randomizeJewel() {
     let jewelIndex = Math.floor(Math.random() * this.jewels.length);
     this.origJewel = this.jewels[jewelIndex];
     console.log(this.origJewel);
+  }
 
-    this.findJewel = null;
-    this.hinting = null;
+  addJewel() {
+    if (this.newJewel && !this.jewels.includes(this.newJewel)) {
+      this.jewels.push(this.newJewel);
+      this.initGame();
+    }
   }
 
   tryJewel(jewel) {

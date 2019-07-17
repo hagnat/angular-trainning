@@ -1,26 +1,46 @@
 <div class="container">
-  <h2>Find the Jewel</h2>
-  <p class="well lead">Find which Jewel computer likes more than the others.</p>
-  <label>Your Try: </label>
-  <input type="string" [value]="findJewel" (input)="findJewel = $event.target.value" />
-  <button (click)="verifyTheTry()" class="btn btn-primary btn-sm">Verify</button>
-  <button (click)="initGame()" class="btn btn-warning btn-sm">Restart</button>
+    <div class='header'>
+        <h2>Find the Jewel</h2>
+        <p class="well lead">
+            Find which Jewel computer likes more than the others.
+        </p>
+    </div>
 
-  <p class="text-info">No of tries :
-    <span class="badge">{{howManyTries}}</span>
-  </p>
+    <div class='find-jewel'>
+        <h3>Guess by Name</h3>
+        <input type="string" [value]="findJewel" (input)="findJewel = $event.target.value" />
+        <button (click)="verifyTheTry()" class="btn btn-primary btn-sm">Verify</button>
+        <button (click)="initGame()" class="btn btn-warning btn-sm">Restart</button>
+    </div>
 
-  <div>
-    <h3>Available Jewels</h3>
-    <ul class='list-inline row'>
-      <li *ngFor="let jewel of jewels" class="jewel list-group-item col-md-1 text-center" (click)="tryJewel(jewel)">
-        {{ jewel }}
-      </li>
-    </ul>
-  </div>
+    <div class='add-jewel'>
+        <h3>Add Jewel</h3>
+        <input type="string" [value]="newJewel" (input)="newJewel = $event.target.value" />
+        <button (click)="addJewel()" class="btn btn-primary btn-sm">Add</button>
+    </div>
 
-  <div>
-    <p *ngIf="hinting===false" class="alert alert-warning">Nope, not that one.. :(</p>
-    <p *ngIf="hinting===true" class="alert alert-success">Yes! That's it.</p>
-  </div>
+    <div class='available-jewels'>
+        <h3>Available Jewels</h3>
+        <ul class='list-inline row'>
+            <li *ngFor="let jewel of jewels" class="jewel list-group-item col-md-1 text-center" (click)="tryJewel(jewel)">
+                {{ jewel }}
+            </li>
+        </ul>
+    </div>
+
+    <div class='find-counter'>
+        <p class="text-info">
+            Number of tries :
+            <span class="badge">{{howManyTries}}</span>
+        </p>
+    </div>
+
+    <div class='find-results'>
+        <p *ngIf="hinting===false" class="alert alert-warning">
+           Nope, not that one.. :(
+        </p>
+        <p *ngIf="hinting===true" class="alert alert-success">
+            Yes! That's it.
+        </p>
+    </div>
 </div>
