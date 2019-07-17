@@ -7,7 +7,7 @@ clear:
 
 jukebox.js:
 	@echo "=> Building Jukebox..."
-	tsc --target ES5 --module system --outFile jukebox.js jukebox.ts
+	tsc --target ES5 jukebox.ts
 	@echo "Build complete!\n"
 
 jukebox: jukebox.js

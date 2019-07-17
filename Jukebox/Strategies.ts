@@ -1,58 +1,60 @@
-namespace Jukebox {
-    export namespace Strategies {
 
-        export interface NextSongStrategy {
-            next(songs: Jukebox.Audio.Song[]): Jukebox.Audio.Song;
+import * as JukeboxAudio from './Audio';
+
+export interface NextSongStrategy {
+    next(songs: JukeboxAudio.Song[]): JukeboxAudio.Song;
+}
+
+export class RandomPlaylistStrategy implements NextSongStrategy{
+    public next(songs: JukeboxAudio.Song[]) {
+        var songCount = songs.length;
+        if (0 == songCount) {
+            throw new Error("There are no music to play");
         }
 
-        export class RandomPlaylistStrategy implements NextSongStrategy{
-            next(songs: Jukebox.Audio.Song[]) {
-                var songCount = songs.length;
-                if (0 == songCount) {
-                    return new Jukebox.Audio.Song('<no songs>', '<nobody>');
-                }
+        var key = Math.floor(Math.random() * songCount);
 
-                var key = Math.floor(Math.random() * songCount);
+        return songs[key];
+    }
+}
 
-                return songs[key];
-            }
+export class QueuedPlaylistStrategy implements NextSongStrategy {
+
+    private current = -1;
+
+    public next(songs: JukeboxAudio.Song[]) {
+        if (0 == songs.length) {
+            throw new Error("There are no music to play");
         }
 
-        export class QueuedPlaylistStrategy implements NextSongStrategy {
+        this.current = ++this.current % songs.length;
 
-            private current = -1;
+        return songs[this.current];
+    }
+}
 
-            next(songs: Jukebox.Audio.Song[]) {
-                if (0 == songs.length) {
-                    return new Jukebox.Audio.Song('<no songs>', '<nobody>');
-                }
+export class SortPlaylistStrategy implements NextSongStrategy {
 
-                this.current = ++this.current % songs.length;
+    private queuedStrategy: QueuedPlaylistStrategy;
 
-                return songs[this.current];
-            }
+    public constructor() {
+        this.queuedStrategy = new QueuedPlaylistStrategy();
+    }
+
+    public next(songs: JukeboxAudio.Song[]) {
+        if (0 == songs.length) {
+            throw new Error("There are no music to play");
         }
 
-        export class SortPlaylistStrategy implements NextSongStrategy {
+        var sortedSongs = songs.sort(this.compareSongTitles);
 
-            private queuedStrategy: QueuedPlaylistStrategy;
+        return this.queuedStrategy.next(sortedSongs);
+    }
 
-            constructor() {
-                this.queuedStrategy = new QueuedPlaylistStrategy();
-            }
-
-            next(songs: Jukebox.Audio.Song[]) {
-                var sortedSongs = songs.sort(this.compareSongTitles);
-
-                return this.queuedStrategy.next(sortedSongs);
-            }
-
-            private compareSongTitles(x: Jukebox.Audio.Song, y: Jukebox.Audio.Song) {
-                if (x.title.toUpperCase() == y.title.toUpperCase()) {
-                    return 0
-                }
-                return x.title.toUpperCase() > y.title.toUpperCase() ? 1 : -1;
-            }
+    private compareSongTitles(x: JukeboxAudio.Song, y: JukeboxAudio.Song) {
+        if (x.title.toUpperCase() == y.title.toUpperCase()) {
+            return 0
         }
+        return x.title.toUpperCase() > y.title.toUpperCase() ? 1 : -1;
     }
 }

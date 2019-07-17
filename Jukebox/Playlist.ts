@@ -1,29 +1,34 @@
-namespace Jukebox {
-    export class Playlist {
 
-        public songs: Jukebox.Audio.Song[];
+import * as JukeboxAudio from './Audio';
+import * as JukeboxStrategies from './Strategies';
 
-        private _strategy: Jukebox.Strategies.NextSongStrategy;
+export class Playlist {
 
-        constructor() {
-            this.songs = [];
-            this._strategy = new Jukebox.Strategies.QueuedPlaylistStrategy();
-        }
+    public songs: JukeboxAudio.Song[];
 
-        set strategy(strategy: Jukebox.Strategies.NextSongStrategy) {
-            this._strategy = strategy;
-        }
+    private _strategy: JukeboxStrategies.NextSongStrategy;
 
-        get strategy() {
-            return this._strategy;
-        }
+    public constructor() {
+        this.songs = [];
+        this._strategy = new JukeboxStrategies.QueuedPlaylistStrategy();
+    }
 
-        play() {
-            return this.next().play();
-        }
+    /**
+     * not really needed, but doing this for the exercise
+     */
+    public set strategy(strategy: JukeboxStrategies.NextSongStrategy) {
+        this._strategy = strategy;
+    }
 
-        next() {
-            return this.strategy.next(this.songs);
-        }
+    public get strategy() {
+        return this._strategy;
+    }
+
+    public play() {
+        return this.next().play();
+    }
+
+    public next() {
+        return this.strategy.next(this.songs);
     }
 }
