@@ -14,27 +14,7 @@ Also 'templateUrl' property can point to a separate file.
 */
 @Component({
   selector: 'my-app',
-  template: `
-    <div class="container">
-      <h2>Find the Jewel</h2>
-      <p class="well lead">Find which Jewel computer likes more than the others.</p>
-      <label>Your Try: </label>
-      <input type="string" [value]="findJewel" (input)="findJewel = $event.target.value" />
-      <button (click)="verifyTheTry()" class="btn btn-primary btn-sm">Verify</button>
-      <button (click)="initGame()" class="btn btn-warning btn-sm">Restart</button>
-      <div>
-<!--
-The asterisk * in front of 'structural directive' ngIf is a simplified syntax.
-Angular expands into an HTML5 <template> tag.
--->
-        <p *ngIf="hinting===false" class="alert alert-warning">Nope, not that one.. )-:</p>
-        <p *ngIf="hinting===true" class="alert alert-success">Yes! That's it.</p>
-      </div>
-      <p class="text-info">No of tries :
-        <span class="badge">{{howManyTries}}</span>
-      </p>
-    </div>
-    `
+  templateUrl: './app.component.html'
 })
 /*
 The class run our component.
