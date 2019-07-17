@@ -5,24 +5,22 @@
   <input type="string" [value]="findJewel" (input)="findJewel = $event.target.value" />
   <button (click)="verifyTheTry()" class="btn btn-primary btn-sm">Verify</button>
   <button (click)="initGame()" class="btn btn-warning btn-sm">Restart</button>
-  <div>
-<!--
-The asterisk * in front of 'structural directive' ngIf is a simplified syntax.
-Angular expands into an HTML5 <template> tag.
--->
-    <p *ngIf="hinting===false" class="alert alert-warning">Nope, not that one.. )-:</p>
-    <p *ngIf="hinting===true" class="alert alert-success">Yes! That's it.</p>
-  </div>
+
   <p class="text-info">No of tries :
     <span class="badge">{{howManyTries}}</span>
   </p>
 
   <div>
-    <h3>Available Options</h3>
-    <ul class='list-group'>
-      <li *ngFor="let jewel of jewels" class="list-group-item">
+    <h3>Available Jewels</h3>
+    <ul class='list-inline row'>
+      <li *ngFor="let jewel of jewels" class="jewel list-group-item col-md-1 text-center" (click)="tryJewel(jewel)">
         {{ jewel }}
       </li>
     </ul>
+  </div>
+
+  <div>
+    <p *ngIf="hinting===false" class="alert alert-warning">Nope, not that one.. :(</p>
+    <p *ngIf="hinting===true" class="alert alert-success">Yes! That's it.</p>
   </div>
 </div>

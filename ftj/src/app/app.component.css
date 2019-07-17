@@ -1,0 +1,6 @@
+.jewel {
+    cursor: pointer;
+}
+.jewel:hover {
+    background-color: #EEE;
+}

@@ -3,7 +3,8 @@ import { Component }from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
@@ -16,6 +17,7 @@ export class AppComponent {
   constructor() {
     this.initGame();
   }
+
   initGame() {
     this.jewels = [
       'ruby',
@@ -43,8 +45,13 @@ export class AppComponent {
     this.findJewel = null;
     this.hinting = null;
   }
-  verifyTheTry() {
-    this.hinting = (this.origJewel === this.findJewel);
+
+  tryJewel(jewel) {
+    this.hinting = (this.origJewel === jewel);
     this.howManyTries = this.howManyTries + 1;
+  }
+
+  verifyTheTry() {
+    this.tryJewel(this.findJewel)
   }
 }
