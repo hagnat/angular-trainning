@@ -1,0 +1,5 @@
+<div class='add-jewel'>
+    <h3>Add Jewel</h3>
+    <input type="string" [value]="newJewel" (input)="newJewel = $event.target.value" />
+    <button (click)="addJewel()" class="btn btn-primary btn-sm">Add</button>
+</div>

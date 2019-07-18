@@ -1,5 +1,5 @@
 <div class="container">
-    <div class='header'>
+    <div class='header' appHighlight>
         <h2>Find the Jewel</h2>
         <p class="well lead">
             Find which Jewel computer likes more than the others.
@@ -13,17 +13,11 @@
         <button (click)="initGame()" class="btn btn-warning btn-sm">Restart</button>
     </div>
 
-    <div class='add-jewel'>
-        <h3>Add Jewel</h3>
-        <input type="string" [value]="newJewel" (input)="newJewel = $event.target.value" />
-        <button (click)="addJewel()" class="btn btn-primary btn-sm">Add</button>
-    </div>
-
     <div class='available-jewels'>
         <h3>Available Jewels</h3>
         <ul class='list-inline row'>
             <li *ngFor="let jewel of jewels" class="jewel list-group-item col-md-1 text-center" (click)="tryJewel(jewel)">
-                {{ jewel }}
+                {{ jewel | uppercase | jewel }}
             </li>
         </ul>
     </div>
