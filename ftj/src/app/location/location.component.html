@@ -1,0 +1,14 @@
+<code class='equipment-location'>
+    <span class='site'>
+        {{ location.site }}
+    </span>
+    <span class='suite'>
+        - {{ location.suite }}
+    </span>
+    <span class='rack'>
+        - {{ location.rack }}
+    </span>
+    <span *ngIf="location.unit" class='unit'>
+        - U{{ location.unit }}
+    </span>
+</code><br/>

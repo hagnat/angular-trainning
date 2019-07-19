@@ -1,5 +1,7 @@
 
 import { Component }from '@angular/core';
+import { JewelProviderService } from './jewel-provider.service';
+import { Location } from './location/location.component';
 
 @Component({
     selector: 'my-app',
@@ -13,22 +15,28 @@ export class AppComponent {
     origJewel: string;
     findJewel: string;
     jewels: string[];
+    server: Any;
 
-    constructor() {
-        this.jewels = [
-            'ruby',
-            'diamond',
-            'agate',
-            'amber',
-            'aquamarine',
-            'amethyst',
-            'opal',
-            'tourmaline',
-            'emerald',
-            'onyx',
-            'pearl',
-            'sapphire'
-        ].sort();
+    constructor(private service: JewelProviderService) {
+        this.jewels = [];
+
+        service.getJewels().subscribe((data) => {
+            this.jewels = data;
+            this.initGame();
+        });
+
+        this.server = {
+            locations: [{
+                site: 'a',
+                suite: 'b',
+                rack: 'c',
+                unit: 'd',
+            }, {
+                site: '1',
+                suite: '2',
+                rack: '3',
+            }],
+        };
 
         this.initGame();
     }

@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JewelProviderService } from './../jewel-provider.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-new-jewel',
@@ -8,22 +10,21 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export class NewJewelComponent implements OnInit {
 
-    newJewel: string;
+    service: JewelProviderService;
+    jewelForm: FormBuilder;
 
-    @Input()
-    jewels: string[];
+    constructor(service: JewelProviderService, private formBuilder: FormBuilder) {
+        this.service = service;
+    }
 
-    @Output()
-    onClick: EventEmitter<string> = new EventEmitter();
-
-    constructor() {
-        this.newJewel = '';
+    ngOnInit() {
+        this.jewelForm = this.formBuilder.group({
+            'jewelName': ['', Validators.required]
+        });
     }
 
     addJewel() {
-        if (this.newJewel && !this.jewels.includes(this.newJewel)) {
-            this.jewels.push(this.newJewel);
-            this.initGame();
-        }
+        this.service.addJewel(this.jewelForm.value.jewelName);
+        this.jewelForm.reset();
     }
 }

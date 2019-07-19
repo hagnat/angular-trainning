@@ -1,5 +1,7 @@
-<div class='add-jewel'>
+<form [formGroup]='jewelForm' (ngSubmit)="addJewel()" class='add-jewel'>
     <h3>Add Jewel</h3>
-    <input type="string" [value]="newJewel" (input)="newJewel = $event.target.value" />
-    <button (click)="addJewel()" class="btn btn-primary btn-sm">Add</button>
-</div>
+    <input type="text" name="jewelName" formControlName="jewelName" />
+    <button type="submit" [disabled]="jewelForm.invalid" class="btn btn-primary btn-sm">
+        Add
+    </button>
+</form>
